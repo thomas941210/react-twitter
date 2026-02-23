@@ -12,38 +12,6 @@ $grayDark: #4c515b;
 
 $font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen','Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',sans-serif;
 
-// footer
-.footer {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 10;
-  width: 100%;
-  max-width: 600px;
-  margin: 0 auto;
-  background-color: transparent;
-  color: $white;
-
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    background-color: transparent;
-
-    button {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 16px 0;
-      border: none;
-      font-size: 15px;
-      background-color: transparent;
-      backdrop-filter: blur(10px);
-    }
-  }
-}
-
 // 전체 레이아웃
 body {
   margin: 0;
@@ -77,22 +45,77 @@ body {
   box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
+.transparent {
+  background-color: transparent;
+  backdrop-filter: blur(10px);
+}
+
+.sticky {
+  position: sticky;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  top: 0;
+}
+
+// footer
+.footer {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 10;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: transparent;
+  color: $white;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    background-color: transparent;
+
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 0;
+      border: none;
+      font-size: 15px;
+      background-color: transparent;
+      backdrop-filter: blur(10px);
+    }
+  }
+}
+
+
+
 // home 레이아웃
 .home {
+  &__top {
+    @extend .transparent;
+    @extend .sticky;
+  }
   &__title {
+    width: 100%;
     padding: 16px;
+    background-color: transparent;
     font-weight: 700;
     font-size: 20px;
   }
-
+  
   &__tabs {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     width: 100%;
+    background-color: transparent;
   }
-
+  
   &__tab {
     padding: 16px;
+    background-color: transparent;
     font-weight: 500;
     text-align: center;
     cursor: pointer;
@@ -157,6 +180,28 @@ body {
 
 // Post 레이아웃
 .post {
+  &__header {
+    button {
+      padding: 16px;
+      border: none;
+    }
+    &-btn {
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+    }
+  }
+
+  &__no-posts {
+    padding: 16px;
+    .post__text {
+      padding: 16px;
+      border: 1px solid gray;
+      border-radius: 4px;
+      font-size: 14px;
+    }
+  }
+
   padding-bottom: 40px;
 
   &__flex {
@@ -238,6 +283,97 @@ body {
           }
         }
       }
+    }
+  }
+}
+
+// form 레이아웃
+
+.form {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 20px;
+
+  input {
+    width: 96%;
+    max-width: 680px;
+    height: 20px;
+    padding: 10px;
+    border: 1px solid lightgray;
+    border-radius: 0.3rem;
+  }
+  &__block {
+    width: 100%;
+    margin-top: 20px;
+  }
+  &__block--lg {
+    width: 100%;
+    margin-top: 28px;
+  }
+  label {
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: 500;
+  }
+  &__btn--submit {
+    @extend .button;
+    width: 100%;
+    height: 48px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: $primaryColor;
+    font-size: 16px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBorder;
+    }
+  }
+  &__title {
+    padding-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    text-align: center;
+  }
+  &__link {
+    margin-left: 10px;
+    color: $grayText;
+    text-decoration: none;
+
+    &:hover,
+    &:focus {
+      color: $gray;
+    }
+  }
+  &__error {
+    color: red;
+  }
+
+  &__btn--google {
+    @extend .form__btn--submit;
+    background-color: $white;
+    color: $activeBorder;
+
+    &:hover,
+    &:focus {
+      background-color: $primaryColor;
+      color: $white;
+    }
+  }
+
+  &__btn--github {
+    @extend .form__btn--submit;
+    background-color: black;
+    color: $white;
+
+    &:hover,
+    &:focus {
+      background-color: $activeBg;
+      color: $white;
     }
   }
 }
