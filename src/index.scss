@@ -73,7 +73,7 @@ body {
 
   &__grid {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     background-color: transparent;
 
     button {
@@ -86,6 +86,7 @@ body {
       font-size: 15px;
       background-color: transparent;
       backdrop-filter: blur(10px);
+      cursor: pointer;
     }
   }
 }
@@ -133,6 +134,40 @@ body {
 }
 
 .post-form {
+  &__input {
+    width: calc(100% - 32px);
+    margin-top: 8px;
+    padding: 8px;
+    border: none;
+    font-family:  $font;
+    resize: none;
+    outline: none;
+  }
+  &__hashtags {
+    padding: 16px;
+    border-bottom: 1px solid $border;
+    &-outputs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 1px;
+      align-items: center;
+    }
+    &-tag {
+      margin-right: 6px;
+      padding: 2px 8px;
+      border: 1px solid $primaryColor;
+      border-radius: 10px;
+      font-size: 14px;
+      color: $primaryColor;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        border: 1px solid $activeBorder;
+        color: $activeBorder;
+      }
+    }
+  }
   &__textarea {
     display: block;
     width: calc(100% - 32px);
@@ -250,7 +285,6 @@ body {
 
       button {
         @extend .button;
-
         &.post__delete {
           background-color: $danger;
 
