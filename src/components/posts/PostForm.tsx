@@ -8,6 +8,8 @@ import { toast } from "react-toastify";
 import AuthContext from "context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 
+import useTranslation from "hooks/useTranslation";
+
 export default function PostForm(){
   const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
@@ -15,6 +17,7 @@ export default function PostForm(){
   const [imageFile, setImageFile] = useState<string | null>(null);
   const [tags, setTags] = useState<string[]>([]);
   const { user } = useContext(AuthContext);
+  const t = useTranslation();
 
   const handleFileUpload = (e: any) => {
     const {target: {files},
@@ -112,7 +115,7 @@ export default function PostForm(){
         id="content"
         className="post-form__textarea"
         required
-        placeholder="What is happening?"
+        placeholder={t("POST_PLACEHOLDER")}
         onChange={onChange}
         value={content}
       />
@@ -129,7 +132,7 @@ export default function PostForm(){
           name="hashtag"
           id="hashtag"
           type="text"
-          placeholder="해시태그 + 스페이스바 입력"
+          placeholder={t("POST_HASHTAG")}
           onChange={onChangeHashTag}
           onKeyUp={handleKeyUp}
           value={hashTag}
@@ -151,13 +154,19 @@ export default function PostForm(){
           {imageFile && (
             <div className="post-form__attachment">
               <img src={imageFile} alt="attachment" width={100} height={100} />
-              <button className="post-form__clear-btn" type="button" onClick={handleDeleteImage}>Clear</button>
+              <button 
+                className="post-form__clear-btn" 
+                type="button" 
+                onClick={handleDeleteImage}
+              >
+                {t("BUTTON_DELETE")}
+              </button>
             </div>
           )}
         </div>
         <input
           type="submit"
-          value="Tweet"
+          value={t("BUTTON_TWEET")}
           className="post-form__submit-btn"
           disabled={isSubmitting}
         />

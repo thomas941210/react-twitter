@@ -10,12 +10,15 @@ import {
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
 
+import useTranslation from "hooks/useTranslation";
+
 export default function SignupForm() {
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordConfirmation, setPasswordConfirmation] = useState<string>("");
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -104,13 +107,13 @@ export default function SignupForm() {
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
-      <div className="form__title">회원가입</div>
+      <div className="form__title">{t("SIGNUP")}</div>
       <div className="form__block">
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">{t("FORM_EMAIL")}</label>
         <input type="text" name="email" id="email" value={email} required onChange={onChange}/>
       </div>
       <div className="form__block">
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password">{t("FORM_PASSWORD")}</label>
         <input
           type="password"
           name="password"
@@ -121,7 +124,7 @@ export default function SignupForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password_confirmation">비밀번호 확인</label>
+        <label htmlFor="password_confirmation">{t("FORM_PASSWORD_CHECK")}</label>
         <input
           type="password"
           name="password_confirmation"
@@ -138,9 +141,9 @@ export default function SignupForm() {
       )}
 
       <div className="form__block">
-        계정이 있으신가요?
+        {t("HAVE_ACCOUNT")}
         <Link to="/users/login" className="form__link">
-          로그인하기
+          {t("SIGNIN_LINK")}
         </Link>
       </div>
       <div className="form__block--lg">
@@ -149,17 +152,17 @@ export default function SignupForm() {
           className="form__btn--submit"
           disabled={error?.length > 0}
         >
-          회원가입
+          {t("SIGNUP")}
         </button>
       </div>
       <div className="form__block">
         <button type="button" name="google" className="form__btn--google" onClick={onClickSocialLogin}>
-          Google로 회원가입
+          {t("SIGNUP_GOOGLE")}
         </button>
       </div>
       <div className="form__block">
         <button type="button" name="github" className="form__btn--github" onClick={onClickSocialLogin}>
-          Github으로 회원가입
+          {t("SIGNUP_GITHUB")}
         </button>
       </div>
     </form>

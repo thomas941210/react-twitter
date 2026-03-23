@@ -9,12 +9,14 @@ import {
 } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
+import useTranslation from "hooks/useTranslation";
 
 export default function SignupForm() {
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const navigate = useNavigate();
+  const t = useTranslation();
 
   const onSubmit = async (e: any) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ export default function SignupForm() {
       const auth = getAuth(app);
       await signInWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toast.success("회원가입이 완료되었습니다.");
+      toast.success("로그인이 완료되었습니다.");
     } catch (error: any) {
       toast.error(error?.code);
     }
@@ -89,13 +91,13 @@ export default function SignupForm() {
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
-      <div className="form__title">회원가입</div>
+      <div className="form__title">{t("SIGNIN")}</div>
       <div className="form__block">
-        <label htmlFor="email">이메일</label>
+        <label htmlFor="email">{t("FORM_EMAIL")}</label>
         <input type="text" name="email" id="email" value={email} required onChange={onChange}/>
       </div>
       <div className="form__block">
-        <label htmlFor="password">비밀번호</label>
+        <label htmlFor="password">{t("FORM_PASSWORD")}</label>
         <input
           type="password"
           name="password"
@@ -112,9 +114,9 @@ export default function SignupForm() {
       )}
 
       <div className="form__block">
-        계정이 없으신가요?
-        <Link to="/users/signin" className="form__link">
-          회원가입하기
+        {t("DONT_HAVE_ACCOUNT")}
+        <Link to="/users/signup" className="form__link">
+          {t("SIGNUP")}
         </Link>
       </div>
       <div className="form__block--lg">
@@ -123,17 +125,17 @@ export default function SignupForm() {
           className="form__btn--submit"
           disabled={error?.length > 0}
         >
-          로그인
+          {t("SIGNIN")}
         </button>
       </div>
       <div className="form__block">
         <button type="button" name="google" className="form__btn--google" onClick={onClickSocialLogin}>
-          Google로 로그인
+          {t("LOGIN_WITH_GOOGLE")}
         </button>
       </div>
       <div className="form__block">
         <button type="button" name="github" className="form__btn--github" onClick={onClickSocialLogin}>
-          Github으로 로그인
+          {t("LOGIN_WITH_GITHUB")}
         </button>
       </div>
     </form>
