@@ -1,10 +1,12 @@
 import { useState } from "react";
 import PostBox from "components/posts/PostBox";
 import { PostProps } from "pages/home";
+import useTranslation from "hooks/useTranslation";
 
 export default function SearchPage() {
   const [posts, setPosts] = useState<PostProps[]>([]);
   const onChange = () => {};
+  const t = useTranslation();
   return (
     <div className="home">
       <div className="home__top">
@@ -15,7 +17,7 @@ export default function SearchPage() {
           <input
             type="text"
             className="home__search"
-            placeholder="해시태그 검색"
+            placeholder={t("SEARCH_HASHTAG")}
             onChange={onChange}
           />
         </div>
@@ -25,7 +27,7 @@ export default function SearchPage() {
           posts?.map((post) => <PostBox post={post} key={post.id} />)
         ) : (
           <div className="post__no-posts">
-            <div className="post__text">게시글이 없습니다.</div>
+            <div className="post__text">{t("NO_POSTS")}</div>
           </div>
         )}
       </div>

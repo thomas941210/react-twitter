@@ -66,7 +66,7 @@ export default function ProfilePage() {
   return (
     <div className="home">
       <div className="home__top">
-        <div className="home__title">Profile</div>
+        <div className="home__title">{t("MENU_PROFILE")}</div>
         <div className="profile">
           <img 
             src={user?.photoURL || PROFILE_DEFAULT_URL } 
@@ -81,7 +81,7 @@ export default function ProfilePage() {
               className="profile__btn" 
               onClick={() => navigate('/profile/edit')}
             >
-              프로필 수정
+              {t("BUTTON_EDIT_PROFILE")}
             </button>
             <button 
               type="button" 
@@ -116,7 +116,7 @@ export default function ProfilePage() {
               myPosts?.map((post) => <PostBox post={post} key={post.id} />)
             ) : (
               <div className="post__no-posts">
-                <div className="post__text">게시글이 없습니다.</div>
+                <div className="post__text">{t("NO_POSTS")}</div>
               </div>
             )}
           </div>
@@ -127,7 +127,7 @@ export default function ProfilePage() {
               likePosts?.map((post) => <PostBox post={post} key={post.id} />)
             ) : (
               <div className="post__no-posts">
-                <div className="post__text">게시글이 없습니다.</div>
+                <div className="post__text">{t("NO_POSTS")}</div>
               </div>
             )}
           </div>

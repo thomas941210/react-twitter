@@ -11,6 +11,8 @@ import AuthContext from "context/AuthContext";
 import { v4 as uuidv4 } from "uuid";
 import PostHeader from "./PostHeader";
 
+import useTranslation from "hooks/useTranslation";
+
 
 export default function PostEditForm(){
   const params = useParams();
@@ -22,6 +24,8 @@ export default function PostEditForm(){
   const [tags, setTags] = useState<string[]>([]);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
+
+  const t = useTranslation();
 
   const handleFileUpload = (e: any) => {
   const {
@@ -152,7 +156,7 @@ export default function PostEditForm(){
             name="hashtag"
             id="hashtag"
             type="text"
-            placeholder="해시태그 + 스페이스바 입력"
+            placeholder={t("POST_HASHTAG")}
             onChange={onChangeHashTag}
             onKeyUp={handleKeyUp}
             value={hashTag}
@@ -180,7 +184,7 @@ export default function PostEditForm(){
           </div>
           <input
             type="submit"
-            value="수정"
+            value={t("BUTTON_EDIT")}
             className="post-form__submit-btn"
             disabled = {isSubmitting}
           />
