@@ -1,7 +1,7 @@
 import { IoIosArrowBack } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
-export default function PostHeader () {
+export default function PostHeader() {
   const navigate = useNavigate();
   return (
     <div className="post__header">

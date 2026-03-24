@@ -5,11 +5,10 @@ import {
   createUserWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
-  GithubAuthProvider
+  GithubAuthProvider,
 } from "firebase/auth";
 import { app } from "firebaseApp";
 import { toast } from "react-toastify";
-
 import useTranslation from "hooks/useTranslation";
 
 export default function SignupForm() {
@@ -26,7 +25,7 @@ export default function SignupForm() {
       const auth = getAuth(app);
       await createUserWithEmailAndPassword(auth, email, password);
       navigate("/");
-      toast.success("회원가입이 완료되었습니다.");
+      toast.success("성공적으로 회원가입이 되었습니다.");
     } catch (error: any) {
       toast.error(error?.code);
     }
@@ -39,23 +38,23 @@ export default function SignupForm() {
 
     if (name === "email") {
       setEmail(value);
-      const validRegex = 
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9.-]+(?:\.[a-zA-Z0-9.-]+)*$/;
+      const validRegex =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 
-        if(!value?.match(validRegex)) {
-          setError("이메일 형식이 올바르지 않습니다.");
-        } else {
-          setError("");
-        }
+      if (!value?.match(validRegex)) {
+        setError("이메일 형식이 올바르지 않습니다.");
+      } else {
+        setError("");
+      }
     }
 
     if (name === "password") {
       setPassword(value);
 
-      if(value?.length < 8) {
-        setError("비밀번호는 8자 이상 입력해주세요.");
-      } else if( value !== password) {
-        setError("비밀번호가 일치하지 않습니다.");
+      if (value?.length < 8) {
+        setError("비밀번호는 8자리 이상 입력해주세요");
+      } else if (value !== passwordConfirmation) {
+        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
       } else {
         setError("");
       }
@@ -64,19 +63,17 @@ export default function SignupForm() {
     if (name === "password_confirmation") {
       setPasswordConfirmation(value);
 
-      if(value?.length < 8) {
-        setError("비밀번호는 8자 이상 입력해주세요.");
-      } else if( value !== password) {
-        setError("비밀번호가 일치하지 않습니다.");
+      if (value?.length < 8) {
+        setError("비밀번호는 8자리 이상 입력해주세요");
+      } else if (value !== password) {
+        setError("비밀번호와 비밀번호 확인 값이 다릅니다.");
       } else {
         setError("");
       }
     }
   };
 
-  const onClickSocialLogin = async (
-    e: any
-  ) => {
+  const onClickSocialLogin = async (e: any) => {
     const {
       target: { name },
     } = e;
@@ -95,22 +92,31 @@ export default function SignupForm() {
     await signInWithPopup(
       auth,
       provider as GithubAuthProvider | GoogleAuthProvider
-    ).then((result) => {
-      console.log(result);
-      toast.success("회원가입이 완료되었습니다.");
-    }).catch((error) => {
-      console.log(error);
-      const errorMessage = error?.message;
-      toast?.error(errorMessage);
-    })
-  }
+    )
+      .then((result) => {
+        console.log(result);
+        toast.success("로그인 되었습니다.");
+      })
+      .catch((error) => {
+        console.log(error);
+        const errorMessage = error?.message;
+        toast?.error(errorMessage);
+      });
+  };
 
   return (
     <form className="form form--lg" onSubmit={onSubmit}>
-      <div className="form__title">{t("SIGNUP")}</div>
+      <div className="form__title">{t("MENU_SIGNUP")}</div>
       <div className="form__block">
         <label htmlFor="email">{t("FORM_EMAIL")}</label>
-        <input type="text" name="email" id="email" value={email} required onChange={onChange}/>
+        <input
+          type="text"
+          name="email"
+          id="email"
+          value={email}
+          required
+          onChange={onChange}
+        />
       </div>
       <div className="form__block">
         <label htmlFor="password">{t("FORM_PASSWORD")}</label>
@@ -124,7 +130,9 @@ export default function SignupForm() {
         />
       </div>
       <div className="form__block">
-        <label htmlFor="password_confirmation">{t("FORM_PASSWORD_CHECK")}</label>
+        <label htmlFor="password_confirmation">
+          {t("FORM_PASSWORD_CHECK")}
+        </label>
         <input
           type="password"
           name="password_confirmation"
@@ -141,7 +149,7 @@ export default function SignupForm() {
       )}
 
       <div className="form__block">
-        {t("HAVE_ACCOUNT")}
+        {t("YES_ACCOUNT")}
         <Link to="/users/login" className="form__link">
           {t("SIGNIN_LINK")}
         </Link>
@@ -152,16 +160,26 @@ export default function SignupForm() {
           className="form__btn--submit"
           disabled={error?.length > 0}
         >
-          {t("SIGNUP")}
+          {t("MENU_SIGNUP")}
         </button>
       </div>
       <div className="form__block">
-        <button type="button" name="google" className="form__btn--google" onClick={onClickSocialLogin}>
+        <button
+          type="button"
+          name="google"
+          className="form__btn--google"
+          onClick={onClickSocialLogin}
+        >
           {t("SIGNUP_GOOGLE")}
         </button>
       </div>
       <div className="form__block">
-        <button type="button" name="github" className="form__btn--github" onClick={onClickSocialLogin}>
+        <button
+          type="button"
+          name="github"
+          className="form__btn--github"
+          onClick={onClickSocialLogin}
+        >
           {t("SIGNUP_GITHUB")}
         </button>
       </div>

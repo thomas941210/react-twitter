@@ -20,24 +20,25 @@ export interface CommentProps {
 interface CommentBoxProps {
   data: CommentProps;
   post: PostProps;
-} 
+}
 
 export default function CommentBox({ data, post }: CommentBoxProps) {
   const { user } = useContext(AuthContext);
   const t = useTranslation();
   const handleDeleteComment = async () => {
-    if(post) {
+    if (post) {
       try {
         const postRef = doc(db, "posts", post?.id);
         await updateDoc(postRef, {
           comments: arrayRemove(data),
         });
-        toast.success("댓글을 삭제했습니다.");
+        toast.success("댓글을 삭제했습니다");
       } catch (e) {
         console.log(e);
       }
     }
   };
+
   return (
     <div key={data?.createdAt} className={styles.comment}>
       <div className={styles.comment__borderBox}>
@@ -51,8 +52,8 @@ export default function CommentBox({ data, post }: CommentBoxProps) {
         <div className={styles.comment__content}>{data?.comment}</div>
         <div className={styles.comment__submitDiv}>
           {data?.uid === user?.uid && (
-            <button 
-              type="button" 
+            <button
+              type="button"
               className="comment__delete-btn"
               onClick={handleDeleteComment}
             >

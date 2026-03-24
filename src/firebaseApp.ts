@@ -1,4 +1,4 @@
-import { initializeApp, FirebaseApp, getApp, getApps } from "firebase/app";
+import { initializeApp, FirebaseApp, getApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
@@ -14,8 +14,15 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
-app = getApps().length ? getApp() : initializeApp(firebaseConfig);
+try {
+  app = getApp("app");
+} catch (e) {
+  app = initializeApp(firebaseConfig, "app");
+}
+const firebase = initializeApp(firebaseConfig);
 
 export const db = getFirestore(app);
+
 export const storage = getStorage(app);
-export default app;
+
+export default firebase;

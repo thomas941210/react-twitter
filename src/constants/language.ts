@@ -1,166 +1,155 @@
 const TRANSLATIONS = {
-  // MENU
-  MENU_HOME : {
+  // menu
+  MENU_HOME: {
     ko: "홈",
     en: "Home",
   },
-  MENU_PROFILE : { 
+  MENU_PROFILE: {
     ko: "프로필",
     en: "Profile",
   },
-  MENU_SEARCH : {
+  MENU_SEARCH: {
     ko: "검색",
     en: "Search",
   },
-  MENU_NOTI : {
+  MENU_NOTI: {
     ko: "알림",
     en: "Notifications",
   },
-  MENU_LOGOUT : {
+  MENU_LOGOUT: {
     ko: "로그아웃",
     en: "Logout",
   },
-  MENU_LOGIN : {
+  MENU_LOGIN: {
     ko: "로그인",
     en: "Login",
   },
-  // BUTTON
-  BUTTON_FOLLOWING : {
+  MENU_SIGNUP: {
+    ko: "회원가입",
+    en: "Signup",
+  },
+  // button
+  BUTTON_FOLLOWING: {
     ko: "팔로잉",
     en: "Following",
   },
-  BUTTON_FOLLOW : { 
+  BUTTON_FOLLOW: {
     ko: "팔로우",
     en: "Follow",
   },
-  BUTTON_EDIT : {
+  BUTTON_EDIT: {
     ko: "수정",
     en: "Edit",
   },
-  BUTTON_DELETE : {
+  BUTTON_DELETE: {
     ko: "삭제",
     en: "Delete",
   },
-  BUTTON_EDIT_PROFILE : {
+  BUTTON_EDIT_PROFILE: {
     ko: "프로필 수정",
     en: "Edit Profile",
   },
-  BUTTON_COMMENT : {
+  BUTTON_COMMENT: {
     ko: "댓글 입력",
     en: "Comment",
   },
-  BUTTON_TWEET : {
-    ko: "작성하기",
-    en: "TWEET",
-  },
-  // POST
-  NO_POSTS : {
+  // post
+  NO_POSTS: {
     ko: "게시글이 없습니다",
     en: "No Posts",
   },
-  POST_PLACEHOLDER : { 
+  POST_PLACEHOLDER: {
     ko: "내용을 입력해주세요.",
     en: "What is happening?",
   },
-  POST_HASHTAG : {
+  POST_HASHTAG: {
     ko: "해시태그 + 스페이스바 입력",
-    en: "Enter hashtag with spacebar",
+    en: "Enter hashtags with spacebar",
   },
-  POST_CHANGE_IMAGE : {
+  POST_CHANGE_IMAGE: {
     ko: "이미지 변경",
     en: "Change Image",
   },
-  NAME_PLACEHOLDER : {
+  NAME_PLACEHOLDER: {
     ko: "이름",
     en: "Name",
   },
-  // POST
-  TAB_FOLLOWING : {
+  // tabs
+  TAB_FOLLOWING: {
     ko: "팔로잉",
     en: "Following",
   },
-  TAB_ALL : {
+  TAB_ALL: {
     ko: "전체",
     en: "For You",
   },
-  TAB_LIKES : {
+  TAB_LIKES: {
     ko: "좋아요",
     en: "Likes",
   },
-  TAB_MY : {
-    ko: "내가 쓴 글",
+  TAB_MY: {
+    ko: "내가쓴 글",
     en: "My Tweets",
   },
-  // SEARCH
-  SEARCH_HASHTAG : {
+  // search
+  SEARCH_HASHTAGS: {
     ko: "해시태그 검색",
     en: "Search Hashtags",
   },
-  // NOTIFICATION
-  NO_NOTIFICATIONS : {
-    ko: "알림이 없습니다.",
+  // profile
+  PROFILE_NAME: {
+    ko: "사용자님",
+    en: "User",
+  },
+  // notification
+  NO_NOTIFICATIONS: {
+    ko: "알림이 없습니다",
     en: "No notifications",
   },
-  // SIGNIN, SIGNUP
-  FORM_EMAIL : {
+  // signin, signup
+  FORM_EMAIL: {
     ko: "이메일",
     en: "Email",
   },
-  FORM_PASSWORD : {
+  FORM_PASSWORD: {
     ko: "비밀번호",
     en: "Password",
   },
-  FORM_PASSWORD_CHECK : {
+  FORM_PASSWORD_CHECK: {
     ko: "비밀번호 확인",
     en: "Confirm Password",
   },
-  NO_ACCOUNT : {
+  NO_ACCOUNT: {
     ko: "계정이 없으신가요?",
     en: "No Account?",
   },
-  YES_ACCOUNT : {
+  YES_ACCOUNT: {
     ko: "계정이 있으신가요?",
     en: "Already have account?",
   },
-  LOGIN_WITH_GOOGLE : {
+  LOGIN_WITH_GOOGLE: {
     ko: "Google 로그인",
     en: "Continue with Google",
   },
-  LOGIN_WITH_GITHUB : {
+  LOGIN_WITH_GITHUB: {
     ko: "Github 로그인",
     en: "Continue with Github",
   },
-  SIGNUP_GOOGLE : {
+  SIGNUP_GOOGLE: {
     ko: "Google 회원가입",
     en: "Continue with Google",
   },
-  SIGNUP_GITHUB : {
+  SIGNUP_GITHUB: {
     ko: "Github 회원가입",
     en: "Continue with Github",
   },
-  SIGNUP_LINK : {
+  SIGNUP_LINK: {
     ko: "회원가입하기",
     en: "Sign up",
   },
-  SIGNIN_LINK : {
+  SIGNIN_LINK: {
     ko: "로그인하기",
     en: "Login",
-  },
-  SIGNIN : {
-    ko: "로그인",
-    en: "Login",
-  },
-  SIGNUP : {
-    ko: "회원가입",
-    en: "Sign up",
-  },
-  HAVE_ACCOUNT : {
-    ko: "계정이 있으신가요?",
-    en: "Do you have an account?",
-  },
-  DONT_HAVE_ACCOUNT : {
-    ko: "계정이 없으신가요?",
-    en: "Don't have an account?",
   },
 };
 

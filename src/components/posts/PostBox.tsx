@@ -1,5 +1,11 @@
 import AuthContext from "context/AuthContext";
-import { arrayRemove, arrayUnion, deleteDoc, doc, updateDoc } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 import { db } from "firebaseApp";
 import { PostProps } from "pages/home";
 import { useContext } from "react";
@@ -14,12 +20,11 @@ import { toast } from "react-toastify";
 import FollowingBox from "components/following/FollowingBox";
 
 import useTranslation from "hooks/useTranslation";
-
 interface PostBoxProps {
   post: PostProps;
 }
 
-export default function PostBox( { post }: PostBoxProps) {
+export default function PostBox({ post }: PostBoxProps) {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const imageRef = ref(storage, post?.imageUrl);
@@ -28,14 +33,14 @@ export default function PostBox( { post }: PostBoxProps) {
   const toggleLike = async () => {
     const postRef = doc(db, "posts", post.id);
 
-    if(user?.uid && post?.likes?.includes(user?.uid)) {
-      // 사용자가 미리 좋아요를 한 경우 -> 좋아요를 취소한다.
+    if (user?.uid && post?.likes?.includes(user?.uid)) {
+      // 사용자가 좋아요를 미리 한 경우 -> 좋아요를 취소한다
       await updateDoc(postRef, {
         likes: arrayRemove(user?.uid),
         likeCount: post?.likeCount ? post?.likeCount - 1 : 0,
       });
     } else {
-      // 사용자가 좋아요를 하지 않은 경우 -> 좋아요를 추가한다.
+      // 사용자가 좋아요를 하지 않은 경우 -> 좋아요를 추가한다
       await updateDoc(postRef, {
         likes: arrayUnion(user?.uid),
         likeCount: post?.likeCount ? post?.likeCount + 1 : 1,
@@ -44,19 +49,18 @@ export default function PostBox( { post }: PostBoxProps) {
   };
 
   const handleDelete = async () => {
-    const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?")
+    const confirm = window.confirm("해당 게시글을 삭제하시겠습니까?");
     if (confirm) {
       // 스토리지 이미지 먼저 삭제
 
-
-      if(post?.imageUrl) {
+      if (post?.imageUrl) {
         deleteObject(imageRef).catch((error) => {
           console.log(error);
         });
       }
-      
+
       await deleteDoc(doc(db, "posts", post.id));
-      toast.success("게시글이 삭제되었습니다.");
+      toast.success("게시글을 삭제했습니다.");
       navigate("/");
     }
   };
@@ -65,7 +69,7 @@ export default function PostBox( { post }: PostBoxProps) {
     <div className="post__box" key={post?.id}>
       <div className="post__box-profile">
         <div className="post__flex">
-          {post?.profileUrl ? ( 
+          {post?.profileUrl ? (
             <img
               src={post?.profileUrl}
               alt="profile"
@@ -104,6 +108,7 @@ export default function PostBox( { post }: PostBoxProps) {
           </div>
         </Link>
       </div>
+
       <div className="post__box-footer">
         {user?.uid === post?.uid && (
           <>
@@ -114,27 +119,24 @@ export default function PostBox( { post }: PostBoxProps) {
             >
               {t("BUTTON_DELETE")}
             </button>
-            <button
-              type="button"
-              className="post__edit"
-            >
+            <button type="button" className="post__edit">
               <Link to={`/posts/edit/${post?.id}`}>{t("BUTTON_EDIT")}</Link>
             </button>
           </>
         )}
 
-          <button type="button" className="post__likes" onClick={toggleLike}>
-            {user && post?.likes?.includes(user.uid) ? (
-                <AiFillHeart />
-              ) : (
-                <AiOutlineHeart />
-              )}
-            {post?.likeCount || 0}
-          </button>
-          <button type="button" className="post__comments">
-            <FaRegComment />
-            {post?.comments?.length || 0}
-          </button>
+        <button type="button" className="post__likes" onClick={toggleLike}>
+          {user && post?.likes?.includes(user.uid) ? (
+            <AiFillHeart />
+          ) : (
+            <AiOutlineHeart />
+          )}
+          {post?.likeCount || 0}
+        </button>
+        <button type="button" className="post__comments">
+          <FaRegComment />
+          {post?.comments?.length || 0}
+        </button>
       </div>
     </div>
   );

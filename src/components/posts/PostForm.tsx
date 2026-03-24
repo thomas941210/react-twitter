@@ -10,7 +10,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import useTranslation from "hooks/useTranslation";
 
-export default function PostForm(){
+export default function PostForm() {
   const [content, setContent] = useState<string>("");
   const [hashTag, setHashTag] = useState<string>("");
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
@@ -20,7 +20,8 @@ export default function PostForm(){
   const t = useTranslation();
 
   const handleFileUpload = (e: any) => {
-    const {target: {files},
+    const {
+      target: { files },
     } = e;
 
     const file = files?.[0];
@@ -30,11 +31,9 @@ export default function PostForm(){
     fileReader.onloadend = (e: any) => {
       const { result } = e?.currentTarget;
       setImageFile(result);
-    }
+    };
   };
 
-  console.log(imageFile);
-  
   const onSubmit = async (e: any) => {
     setIsSubmitting(true);
     const key = `${user?.uid}/${uuidv4()}`;
@@ -49,7 +48,7 @@ export default function PostForm(){
         imageUrl = await getDownloadURL(data?.ref);
       }
 
-      // 업로드된 이미지의 download URL을 받아오기
+      // 업로드된 이미지의 download url 업데이트
       await addDoc(collection(db, "posts"), {
         content: content,
         createdAt: new Date()?.toLocaleDateString("ko", {
@@ -85,18 +84,18 @@ export default function PostForm(){
 
   const removeTag = (tag: string) => {
     setTags(tags?.filter((val) => val !== tag));
-  }
+  };
 
   const onChangeHashTag = (e: any) => {
     setHashTag(e?.target?.value?.trim());
   };
 
   const handleKeyUp = (e: any) => {
-    if (e.keyCode === 32 && e.target.value.trim() !== ""){
+    if (e.keyCode === 32 && e.target.value.trim() !== "") {
       // 만약 같은 태그가 있다면 에러를 띄운다
       // 아니라면 태그를 생성해준다
-      if (tags?.includes(e.target.value.trim())){
-        toast.error("이미 존재하는 태그입니다.");
+      if (tags?.includes(e.target.value?.trim())) {
+        toast.error("같은 태그가 있습니다.");
       } else {
         setTags((prev) => (prev?.length > 0 ? [...prev, hashTag] : [hashTag]));
         setHashTag("");
@@ -109,12 +108,12 @@ export default function PostForm(){
   };
 
   return (
-    <form action="" className="post-form" onSubmit={onSubmit}>
-      <textarea 
-        name="content"
-        id="content"
+    <form className="post-form" onSubmit={onSubmit}>
+      <textarea
         className="post-form__textarea"
         required
+        name="content"
+        id="content"
         placeholder={t("POST_PLACEHOLDER")}
         onChange={onChange}
         value={content}
@@ -122,7 +121,11 @@ export default function PostForm(){
       <div className="post-form__hashtags">
         <span className="post-form__hashtags-outputs">
           {tags?.map((tag, index) => (
-            <span className="post-form__hashtags-tag" key={index} onClick={() => removeTag(tag)}>
+            <span
+              className="post-form__hashtags-tag"
+              key={index}
+              onClick={() => removeTag(tag)}
+            >
               #{tag}
             </span>
           ))}
@@ -131,7 +134,6 @@ export default function PostForm(){
           className="post-form__input"
           name="hashtag"
           id="hashtag"
-          type="text"
           placeholder={t("POST_HASHTAG")}
           onChange={onChangeHashTag}
           onKeyUp={handleKeyUp}
@@ -141,7 +143,7 @@ export default function PostForm(){
       <div className="post-form__submit-area">
         <div className="post-form__image-area">
           <label htmlFor="file-input" className="post-form__file">
-            <FiImage className="post-form__file-icon"/>
+            <FiImage className="post-form__file-icon" />
           </label>
           <input
             type="file"
@@ -154,9 +156,9 @@ export default function PostForm(){
           {imageFile && (
             <div className="post-form__attachment">
               <img src={imageFile} alt="attachment" width={100} height={100} />
-              <button 
-                className="post-form__clear-btn" 
-                type="button" 
+              <button
+                className="post-form__clear-btn"
+                type="button"
                 onClick={handleDeleteImage}
               >
                 {t("BUTTON_DELETE")}
@@ -166,7 +168,7 @@ export default function PostForm(){
         </div>
         <input
           type="submit"
-          value={t("BUTTON_TWEET")}
+          value="Tweet"
           className="post-form__submit-btn"
           disabled={isSubmitting}
         />

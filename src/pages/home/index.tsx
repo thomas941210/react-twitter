@@ -5,7 +5,14 @@ import PostBox from "components/posts/PostBox";
 
 import useTranslation from "hooks/useTranslation";
 
-import { collection, query, onSnapshot, orderBy, doc, where } from "firebase/firestore";
+import {
+  collection,
+  query,
+  onSnapshot,
+  orderBy,
+  doc,
+  where,
+} from "firebase/firestore";
 import AuthContext from "context/AuthContext";
 import { db } from "firebaseApp";
 
@@ -27,8 +34,7 @@ interface UserProps {
   id: string;
 }
 
-
-type tabType = 'all' | 'following';
+type tabType = "all" | "following";
 
 export default function HomePage() {
   const [posts, setPosts] = useState<PostProps[]>([]);
@@ -40,21 +46,23 @@ export default function HomePage() {
 
   // 실시간 동기화로 user의 팔로잉 id 배열 가져오기
   const getFollowingIds = useCallback(async () => {
-    if(user?.uid) {
+    if (user?.uid) {
       const ref = doc(db, "following", user?.uid);
       onSnapshot(ref, (doc) => {
         setFollowingIds([""]);
-        doc?.data()?.users?.map((user: UserProps) => 
-          setFollowingIds((prev: string[]) => 
-            (prev ? [...prev, user?.id] : [])
-          )
-        );
+        doc
+          ?.data()
+          ?.users?.map((user: UserProps) =>
+            setFollowingIds((prev: string[]) =>
+              prev ? [...prev, user?.id] : []
+            )
+          );
       });
     }
   }, [user?.uid]);
 
   useEffect(() => {
-    if(user) {
+    if (user) {
       let postsRef = collection(db, "posts");
       let postsQuery = query(postsRef, orderBy("createdAt", "desc"));
       let followingQuery = query(
@@ -66,7 +74,7 @@ export default function HomePage() {
       onSnapshot(postsQuery, (snapShot) => {
         let dataObj = snapShot.docs.map((doc) => ({
           ...doc.data(),
-            id: doc?.id,
+          id: doc?.id,
         }));
         setPosts(dataObj as PostProps[]);
       });
@@ -74,13 +82,12 @@ export default function HomePage() {
       onSnapshot(followingQuery, (snapShot) => {
         let dataObj = snapShot.docs.map((doc) => ({
           ...doc.data(),
-            id: doc?.id,
+          id: doc?.id,
         }));
         setFollowingPosts(dataObj as PostProps[]);
       });
     }
-
-  }, [followingIds ,user]);
+  }, [followingIds, user]);
 
   useEffect(() => {
     if (user?.uid) getFollowingIds();
@@ -91,18 +98,20 @@ export default function HomePage() {
       <div className="home__top">
         <div className="home__title">{t("MENU_HOME")}</div>
         <div className="home__tabs">
-          <div className={`home__tab ${
-            activeTab === "all" && "home__tab--active"
-          }`}
-          onClick={() => {
-            setActiveTab("all");
-          }}
+          <div
+            className={`home__tab ${
+              activeTab === "all" && "home__tab--active"
+            }`}
+            onClick={() => {
+              setActiveTab("all");
+            }}
           >
             {t("TAB_ALL")}
           </div>
-          <div className={`home__tab ${
-            activeTab === "following" && "home__tab--active"
-          }`}
+          <div
+            className={`home__tab ${
+              activeTab === "following" && "home__tab--active"
+            }`}
             onClick={() => {
               setActiveTab("following");
             }}
@@ -111,8 +120,9 @@ export default function HomePage() {
           </div>
         </div>
       </div>
+
       <PostForm />
-      {activeTab === 'all' && (
+      {activeTab === "all" && (
         <div className="post">
           {posts?.length > 0 ? (
             posts?.map((post) => <PostBox post={post} key={post.id} />)
@@ -123,8 +133,7 @@ export default function HomePage() {
           )}
         </div>
       )}
-
-      {activeTab === 'following' && (
+      {activeTab === "following" && (
         <div className="post">
           {followingPosts?.length > 0 ? (
             followingPosts?.map((post) => <PostBox post={post} key={post.id} />)
@@ -136,5 +145,5 @@ export default function HomePage() {
         </div>
       )}
     </div>
-  )
+  );
 }

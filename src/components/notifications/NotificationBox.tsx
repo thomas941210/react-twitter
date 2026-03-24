@@ -5,12 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 import styles from "./Notification.module.scss";
 
-export default function NotificationBox ({ 
-    notification,
-  }: {
-    notification: NotificationProps;
-  }) {
-
+export default function NotificationBox({
+  notification,
+}: {
+  notification: NotificationProps;
+}) {
   const navigate = useNavigate();
 
   const onClickNotification = async (url: string) => {
@@ -30,9 +29,9 @@ export default function NotificationBox ({
           <div className={styles.notification__createdAt}>
             {notification?.createdAt}
           </div>
-            {notification?.isRead === false && (
-              <div className={styles.notification__unread} />
-            )}
+          {notification?.isRead === false && (
+            <div className={styles.notification__unread} />
+          )}
         </div>
         <div className="notification__content">{notification.content}</div>
       </div>

@@ -1,21 +1,23 @@
 import { BsHouse } from "react-icons/bs";
 import { BiUserCircle } from "react-icons/bi";
-import { MdLogout, MdLogin } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import { MdLogout, MdLogin } from "react-icons/md";
 import { useContext } from "react";
+import AuthContext from "context/AuthContext";
 import { getAuth, signOut } from "firebase/auth";
 import { app } from "firebaseApp";
-import AuthContext from "context/AuthContext";
 import { AiOutlineSearch } from "react-icons/ai";
-import { toast } from "react-toastify";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import useTranslation from "hooks/useTranslation";
 
-export default function MenuList(){
+import { toast } from "react-toastify";
+
+export default function MenuList() {
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const t = useTranslation();
-  return(
+
+  return (
     <div className="footer">
       <div className="footer__grid">
         <button type="button" onClick={() => navigate("/")}>
@@ -34,12 +36,12 @@ export default function MenuList(){
           <IoMdNotificationsOutline />
           <span className="footer__grid--text">{t("MENU_NOTI")}</span>
         </button>
-        { user === null ? (
+        {user === null ? (
           <button type="button" onClick={() => navigate("/users/login")}>
             <MdLogin />
             <span className="footer__grid--text">{t("MENU_LOGIN")}</span>
           </button>
-        ): (
+        ) : (
           <button
             type="button"
             onClick={async () => {
